@@ -4,8 +4,11 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import * as Yup from 'yup';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function CreatePost() {
+  let navigate = useNavigate();
+
   const initialValues = {
     title: "",
     postText: "",
@@ -20,9 +23,10 @@ function CreatePost() {
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/posts", data).then((response) => {
-      console.log("Berhasil Input Data");
+      navigate('/');
     });
   };
+
 
   return (
     <div>

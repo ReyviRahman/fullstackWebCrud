@@ -2,9 +2,11 @@ import React from 'react';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Card from 'react-bootstrap/Card';
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
+  let navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:3001/posts").then((response) => {
@@ -16,7 +18,7 @@ function Home() {
     <div className='d-flex align-items-center flex-column'>
       {listOfPosts.map((value, key) => {
         return (
-          <Card style={{ width: '500px' }} className="text-center mt-4">
+          <Card onMouseEnter={(e) => e.currentTarget.classList.add('shadow')} onMouseLeave={(e) => e.currentTarget.classList.remove('shadow')} style={{ width: '500px', cursor: 'pointer' }} className="text-center mt-4" onClick={ () => {navigate(`/post/${value.id}`)}}>
             <Card.Header className="bg-primary text-white py-3">
               <Card.Title>{value.title}</Card.Title>
             </Card.Header>

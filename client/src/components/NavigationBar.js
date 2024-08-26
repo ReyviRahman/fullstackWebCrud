@@ -14,6 +14,8 @@ function NavigationBar() {
           <Nav className="me-auto">
             <Nav.Link className='fw-bold' as={Link} to="/">Home</Nav.Link>
             <Nav.Link className='fw-bold' as={Link} to="/createPost">Create A Post</Nav.Link>
+            <Nav.Link className='fw-bold' as={Link} to="/login">Login</Nav.Link>
+            <Nav.Link className='fw-bold' as={Link} to="/register">Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -18,7 +18,7 @@ function Home() {
     <div className='d-flex align-items-center flex-column'>
       {listOfPosts.map((value, key) => {
         return (
-          <Card onMouseEnter={(e) => e.currentTarget.classList.add('shadow')} onMouseLeave={(e) => e.currentTarget.classList.remove('shadow')} style={{ width: '500px', cursor: 'pointer' }} className="text-center mt-4" onClick={ () => {navigate(`/post/${value.id}`)}}>
+          <Card key={key} onMouseEnter={(e) => e.currentTarget.classList.add('shadow')} onMouseLeave={(e) => e.currentTarget.classList.remove('shadow')} style={{ width: '500px', cursor: 'pointer' }} className="text-center mt-4" onClick={ () => {navigate(`/post/${value.id}`)}}>
             <Card.Header className="bg-primary text-white py-3">
               <Card.Title>{value.title}</Card.Title>
             </Card.Header>

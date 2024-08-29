@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { Users } = require("../models");
 
+const {sign} = require('jsonwebtoken');
+
 router.post("/", async (req, res) => {
   const user = req.body;
   await Users.create(user);
@@ -17,7 +19,9 @@ router.post("/login", async (req, res) => {
   if (user.password !== password) {
     res.json({error: "Wrong Password"});
   } else {
-    res.json("You Logged In!!");
+    const accessToken = sign({username: user.username, id: user.id}, "importantsecret");
+
+    res.json(accessToken);
   }
 
 });

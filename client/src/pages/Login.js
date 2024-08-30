@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../helpers/AuthContext';
 
 function Login() {
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const {setAuthState} = useContext(AuthContext);
+  
   const login = () => {
     const data = { username: username, password: password};
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if(response.data.error){
         alert(response.data.error);
       } else {
-        sessionStorage.setItem("accessToken", response.data);
+        localStorage.setItem("accessToken", response.data);
+        setAuthState(true);
         navigate('/');
       } 
     });
@@ -50,7 +53,7 @@ function Login() {
           />
         </InputGroup>
         <div className='d-grid'>
-          <Button variant="primary" onClick={login}>Primary</Button>
+          <Button variant="primary" onClick={login}>Login</Button>
         </div>
       </div>
     </div>

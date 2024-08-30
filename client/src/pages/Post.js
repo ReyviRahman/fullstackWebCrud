@@ -26,11 +26,14 @@ function Post() {
   }, []);
 
   const addComment = () => {
-    axios.post("http://localhost:3001/comments", {commentBody: newComment, PostId: id}, {headers: {accessToken: sessionStorage.getItem("accessToken")}}).then((response) => {
+    axios.post("http://localhost:3001/comments", {commentBody: newComment, PostId: id}, {headers: {accessToken: localStorage.getItem("accessToken")}}).then((response) => {
       if (response.data.error) {
         alert(response.data.error.message);
       } else {
-        const commentToAdd = { commentBody: newComment};
+        const commentToAdd = { 
+          commentBody: newComment,
+          username: response.data.username,
+        };
         setComments([...comments, commentToAdd]);
         setNewComment("");
       }
@@ -65,7 +68,10 @@ function Post() {
           {comments.map((value, key) => {
             return (
               <Card key={key} className='mt-3'>
-                <Card.Body>{value.commentBody}</Card.Body>
+                <Card.Body>
+                  <label className='fw-bold'>{value.username}</label>
+                  <p>{value.commentBody}</p>
+                </Card.Body>
               </Card>            
             );
           })}
